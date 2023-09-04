@@ -16,6 +16,7 @@ load_dotenv()
 # SCOPES = os.getenv('SCOPES')
 # print(f'SCOPES: {SCOPES}')
 SCOPES = ['https://www.googleapis.com/auth/calendar']
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
 
 def main():
