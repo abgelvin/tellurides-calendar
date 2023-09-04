@@ -1,17 +1,21 @@
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
+# import oauth2client
 from googleapiclient.errors import HttpError
+from google.auth.transport.requests import Request
 
 import datetime
 from dateutil.relativedelta import relativedelta
 import os.path
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 import json
 import mysql.connector
 
-
-SCOPES = os.getenv('SCOPES')
+load_dotenv()
+# SCOPES = os.getenv('SCOPES')
+# print(f'SCOPES: {SCOPES}')
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
 def main():
@@ -19,7 +23,7 @@ def main():
     events = get_events()
 
     # Save retrieved events to database
-    # save_to_db(events)
+    save_to_db(events)
 
 
 def get_events():
@@ -29,10 +33,12 @@ def get_events():
     # Establish credentials from key_file
     if os.path.exists(creds_path):
         creds = service_account.Credentials.from_service_account_file(creds_path, scopes=SCOPES)
+        # print(f'scope: {SCOPES}')
 
     try:
         service = build('calendar', 'v3', credentials=creds)
-        print(f'service: {service}')
+        # print(f'service: {service}')
+        
         # Call the calendar API and retrieve events for selected time period
         today = datetime.date.today()
         last_month = today + relativedelta(days=-1)
@@ -91,7 +97,6 @@ def save_to_db(events):
                 # Split datetime into date and time
                 date_time = start.split('T')
                 date = date_time[0]
-                print(date)
                 if len(date_time) < 2:
                     print(f'no date/time entered: {fields}')
                     continue
@@ -112,10 +117,10 @@ def save_to_db(events):
                 db.commit()
 
         except Exception as e:
-            print('An error occurred: %s' % fields)
+            print(f'An error occurred: {fields}')
 
             raise e
-
+    print(f'saved to db')
 
 
 if __name__ == '__main__':
