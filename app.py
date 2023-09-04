@@ -38,7 +38,6 @@ def get_events():
 
     try:
         service = build('calendar', 'v3', credentials=creds)
-        # print(f'service: {service}')
         
         # Call the calendar API and retrieve events for selected time period
         today = datetime.date.today()

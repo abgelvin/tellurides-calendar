@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, session, redirect, make_response
+from flask import Flask, request, render_template, session, redirect, Response
 import mysql.connector
 
 from app import main
@@ -8,7 +8,26 @@ app = Flask(__name__)
 app.secret_key = 'tellurides'
 
 
+# Flask authentication
+def check_auth(username, password):
+    return username == os.getenv('USERNAME') and password == os.getenv('PASSWORD')
+
+
+def authenticate():
+    return Response('Could not verify username/password', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+
+def requires_auth(function):
+    def wrapper(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return function(*args, **kwargs)
+    return wrapper
+
+
 @app.route('/', methods=['GET', 'POST'])
+@requires_auth
 def options():
 
     # If method is GET, user has selected a date.  Retrieve info from the database.
