@@ -1,15 +1,12 @@
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-# import oauth2client
 from googleapiclient.errors import HttpError
-from google.auth.transport.requests import Request
 
 import datetime
 from dateutil.relativedelta import relativedelta
 import os.path
 import os
 from dotenv import load_dotenv
-import json
 import mysql.connector
 
 load_dotenv()
@@ -90,8 +87,10 @@ def save_to_db(events):
             continue
         
         try:
+
             # If there are at least 6 fields and there is a start time, retrieve fields from event and insert into db table
             if len(fields) > 5 and start:
+
                 # Split datetime into date and time
                 date_time = start.split('T')
                 date = date_time[0]

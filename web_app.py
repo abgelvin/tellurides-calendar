@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, session, redirect, Response
+from flask import Flask, request, render_template, session, Response
 import mysql.connector
 
 from app import main
@@ -29,18 +29,23 @@ def requires_auth(function):
 @app.route('/', methods=['GET', 'POST'])
 @requires_auth
 def options():
-
-    # If method is GET, user has selected a date.  Retrieve info from the database.
-    # if request.method == 'GET':
+    
+    # Update database
     main()
     print('database updated')
+
+    # Display schedule for selected date
     return display()
     
-    # # If method is POST, update the database.
+    ## Leaving this code in case it is taking too long to update db every time, then would use with layout.html
+    # If method is GET, user has selected a date.  Retrieve info from the database.
+    # if request.method == 'GET':
+    #   return display()
+    
+    # If method is POST, update the database.
     # elif request.method == 'POST':
     #     main()
     #     return render_template('layout.html')
-    
 
 def display():
     
@@ -54,7 +59,6 @@ def display():
     cu = db.cursor()
 
     # Get date from user
-    # print(f'session: {session}')
     session['date'] = str(request.args.get("date"))
     date = session['date']
 
