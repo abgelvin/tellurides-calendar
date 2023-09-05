@@ -30,3 +30,7 @@ h1 {
 .card-subtitle {
     font-size: x-small;
 }
+
+.col {
+    padding: 0;
+}
