@@ -31,13 +31,15 @@ def requires_auth(function):
 def options():
 
     # If method is GET, user has selected a date.  Retrieve info from the database.
-    if request.method == 'GET':
-        return display()
+    # if request.method == 'GET':
+    main()
+    print('database updated')
+    return display()
     
-    # If method is POST, update the database.
-    elif request.method == 'POST':
-        main()
-        return render_template('layout.html')
+    # # If method is POST, update the database.
+    # elif request.method == 'POST':
+    #     main()
+    #     return render_template('layout.html')
     
 
 def display():
@@ -52,7 +54,7 @@ def display():
     cu = db.cursor()
 
     # Get date from user
-    print(f'session: {session}')
+    # print(f'session: {session}')
     session['date'] = str(request.args.get("date"))
     date = session['date']
 

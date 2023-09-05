@@ -46,11 +46,9 @@ def get_events():
         startDay = datetime.datetime.combine(last_month, datetime.datetime.min.time()).isoformat() + 'Z'
         endDay = datetime.datetime.combine(next_month, datetime.datetime.max.time()).isoformat() + 'Z'
         
-        print('got this far')
         events_results =  service.events().list(calendarId='westernsloperides@gmail.com', 
                                             timeMin=startDay, timeMax=endDay, maxResults=2500, singleEvents=True, orderBy='startTime').execute()
         
-        print('not this far')
         events = events_results.get('items', [])        
         print('events retrieved')
 
