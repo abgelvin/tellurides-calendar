@@ -73,7 +73,7 @@ def display():
         else:
             over.append(row)
     session.clear()
-    return render_template('layout.html', date=date, up=up, down=down, over=over)
+    return render_template('layout2.html', date=date, up=up, down=down, over=over)
 
 
 

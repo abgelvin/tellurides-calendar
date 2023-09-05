@@ -1,0 +1,32 @@
+.pb-0 {
+    padding-bottom: 0 !important;
+}
+
+.bt-0 {
+    padding-top: 0 !important;
+}
+
+h1 {
+    color: purple;
+    align-content: center;
+}
+
+.card {
+    text-align: center !important;
+}
+
+.print-card {
+    margin-top: 2px;
+}
+
+.card-body {
+    padding-top: 8px;
+    padding-bottom: 2px;
+    padding-right: 0;
+    padding-left: 0;
+    
+}
+
+.card-subtitle {
+    font-size: x-small;
+}
