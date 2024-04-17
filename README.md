@@ -1,5 +1,5 @@
 # tellurides-calendar
-application to retrieve and display TelluRides's reservations by date
+application to retrieve and display TelluRides's reservations by date, this is the version that is used for onrender and planetscale
 
 ## files
 - app.py 
