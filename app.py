@@ -60,11 +60,11 @@ def save_to_db(events):
 
     # Create connection with PlanetScale database
     db = mysql.connector.connect(
-    host = os.getenv('DB_HOST'),
-    user = os.getenv('DB_USER'),
-    password = os.getenv('DB_PASSWORD'),
-    db = os.getenv('DB_DB')
-    )
+        host = os.getenv('DB_HOST'),
+        user = os.getenv('DB_USER'),
+        password = os.getenv('DB_PASSWORD'),
+        db = os.getenv('DB_DB')
+        )
 
     cu = db.cursor()
 
