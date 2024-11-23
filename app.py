@@ -112,7 +112,7 @@ def save_to_db(events):
                 etx = fields[5]
 
                 # Add events to reservations database
-                cu.execute('INSERT INTO reservations (date, start_time, flight, ride_type, party, origin, destination, etx) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+                cu.execute('INSERT INTO reservations (date, start_time, flight, ride_type, party, origin, destination, etx) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                            (date, start_time, flight, ride_type, party, origin, destination, etx,))
 
                 db.commit()

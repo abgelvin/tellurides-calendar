@@ -69,7 +69,7 @@ def display():
     date = session['date']
 
     # Get db info for user selected date
-    rows = cu.execute('SELECT start_time, flight, ride_type, party, origin, destination, etx FROM reservations WHERE date = (%s) ORDER BY start_time', (date,))
+    rows = cu.execute('SELECT start_time, flight, ride_type, party, origin, destination, etx FROM reservations WHERE date = (?) ORDER BY start_time', (date,))
     rows = cu.fetchall()
     up = []
     down = []
