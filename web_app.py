@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, render_template, session, Response
 import mysql.connector
+import sqlite3
 
 from app import main
 
@@ -49,13 +50,18 @@ def options():
 
 def display():
     
-    # Create connection to planetscale database
-    db = mysql.connector.connect(
-        host=os.getenv('DB_HOST'), 
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        db=os.getenv('DB_DB'),
-        )
+    # Create connection to planetscale database - original method
+    # db = mysql.connector.connect(
+    #     host=os.getenv('DB_HOST'), 
+    #     user=os.getenv('DB_USER'),
+    #     password=os.getenv('DB_PASSWORD'),
+    #     db=os.getenv('DB_DB'),
+    #     )
+
+    # Create sqlite3 connection to avoid PlanetScale 
+    db = sqlite3.connect('data.db')
+
+    # Create cursor
     cu = db.cursor()
 
     # Get date from user

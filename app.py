@@ -8,6 +8,7 @@ import os.path
 import os
 from dotenv import load_dotenv
 import mysql.connector
+import sqlite3
 
 load_dotenv()
 # SCOPES = os.getenv('SCOPES')
@@ -59,17 +60,20 @@ def get_events():
 def save_to_db(events):
 
     # Create connection with PlanetScale database
-    db = mysql.connector.connect(
-        host = os.getenv('DB_HOST'),
-        user = os.getenv('DB_USER'),
-        password = os.getenv('DB_PASSWORD'),
-        db = os.getenv('DB_DB')
-        )
+    # db = mysql.connector.connect(
+    #     host = os.getenv('DB_HOST'),
+    #     user = os.getenv('DB_USER'),
+    #     password = os.getenv('DB_PASSWORD'),
+    #     db = os.getenv('DB_DB')
+    #     )
+
+    # Create connection to local db file, avoiding PlanetScale
+    db = sqlite3.connect('data.db')
 
     cu = db.cursor()
 
     # Create reservations table
-    cu.execute('CREATE TABLE IF NOT EXISTS reservations (id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, date TEXT NOT NULL, start_time TEXT NOT NULL, flight TEXT NOT NULL, ride_type TEXT NOT NULL, party TEXT NOT NULL, origin TEXT NOT NULL, destination TEXT NOT NULL, etx TEXT NOT NULL)')
+    cu.execute('CREATE TABLE IF NOT EXISTS reservations (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, start_time TEXT NOT NULL, flight TEXT NOT NULL, ride_type TEXT NOT NULL, party TEXT NOT NULL, origin TEXT NOT NULL, destination TEXT NOT NULL, etx TEXT NOT NULL)')
 
     # Clear database table of previous query data
     cu.execute('DELETE FROM reservations')
