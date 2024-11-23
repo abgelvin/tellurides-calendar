@@ -72,7 +72,7 @@ def save_to_db(events):
 
     cu = db.cursor()
 
-    # Create reservations table
+    # Create reservations table - 'AUTOINCREMENT' is 'AUTO_INCREMENT' for mysql
     cu.execute('CREATE TABLE IF NOT EXISTS reservations (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, start_time TEXT NOT NULL, flight TEXT NOT NULL, ride_type TEXT NOT NULL, party TEXT NOT NULL, origin TEXT NOT NULL, destination TEXT NOT NULL, etx TEXT NOT NULL)')
 
     # Clear database table of previous query data
@@ -111,7 +111,7 @@ def save_to_db(events):
                 destination = fields[4]
                 etx = fields[5]
 
-                # Add events to reservations database
+                # Add events to reservations database - '?' is '%s' for mysql
                 cu.execute('INSERT INTO reservations (date, start_time, flight, ride_type, party, origin, destination, etx) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                            (date, start_time, flight, ride_type, party, origin, destination, etx,))
 

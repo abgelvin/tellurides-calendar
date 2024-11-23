@@ -68,7 +68,7 @@ def display():
     session['date'] = str(request.args.get("date"))
     date = session['date']
 
-    # Get db info for user selected date
+    # Get db info for user selected date - '?' is '%s' for mysql
     rows = cu.execute('SELECT start_time, flight, ride_type, party, origin, destination, etx FROM reservations WHERE date = (?) ORDER BY start_time', (date,))
     rows = cu.fetchall()
     up = []
